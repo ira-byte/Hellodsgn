@@ -1,0 +1,11 @@
+{
+  "name": "hellodsgn-portfolio",
+  "version": "1.0.0",
+  "description": "Director of UX Design Portfolio",
+  "scripts": {
+    "generate-pdf": "node generate-pdf.js"
+  },
+  "dependencies": {
+    "puppeteer": "^24.36.1"
+  }
+}
