@@ -82,10 +82,16 @@ const path = require('path');
       if (el.style.opacity === '0') el.style.opacity = '1';
     });
 
-    // Make pdf-only elements visible in PDF
+    // Make pdf-only elements visible in PDF (override !important from CSS)
     document.querySelectorAll('.pdf-only').forEach(el => {
-      el.style.display = 'flex';
-      el.style.visibility = 'visible';
+      // Use inline for a/span elements, block for divs
+      if (el.tagName === 'A' || el.tagName === 'SPAN') {
+        el.style.setProperty('display', 'inline', 'important');
+      } else {
+        el.style.setProperty('display', 'flex', 'important');
+      }
+      el.style.setProperty('visibility', 'visible', 'important');
+      el.style.setProperty('opacity', '1', 'important');
     });
 
     // Remove all card backgrounds and borders
@@ -143,13 +149,13 @@ const path = require('path');
       container.style.flexWrap = 'nowrap';
     });
 
-    // Ensure individual stat items stay horizontal
+    // Ensure individual stat items stay horizontal and left-aligned
     const statItems = document.querySelectorAll('.hero-stats-plain .stat');
     statItems.forEach(stat => {
       stat.style.display = 'flex';
       stat.style.flexDirection = 'column';
-      stat.style.alignItems = 'center';
-      stat.style.textAlign = 'center';
+      stat.style.alignItems = 'flex-start';
+      stat.style.textAlign = 'left';
       stat.style.minWidth = '80px';
     });
 
